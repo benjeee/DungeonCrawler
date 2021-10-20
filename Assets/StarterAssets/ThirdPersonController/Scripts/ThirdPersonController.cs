@@ -125,10 +125,8 @@ namespace StarterAssets
 		{
 			_hasAnimator = TryGetComponent(out _animator);
 			
-            if (!inHookshot)
-            {
-                JumpAndGravity();
-            }
+            JumpAndGravity();
+
 			
 			GroundedCheck();
 
@@ -341,7 +339,7 @@ namespace StarterAssets
 
 		private void JumpAndGravity()
 		{
-			if (Grounded)
+			if (Grounded || inHookshot)
 			{
 				// reset the fall timeout timer
 				_fallTimeoutDelta = FallTimeout;
@@ -363,7 +361,11 @@ namespace StarterAssets
 				if (_input.jump && _jumpTimeoutDelta <= 0.0f)
 				{
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
-					_verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                    if (!inHookshot)
+                    {
+                        _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                    }
+
 
 					// update animator if using character
 					if (_hasAnimator)
