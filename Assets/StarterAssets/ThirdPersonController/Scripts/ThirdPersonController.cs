@@ -119,8 +119,17 @@ namespace StarterAssets
 			
 			JumpAndGravity();
 			GroundedCheck();
+            Interact();
 			Move();
 		}
+
+        private void Interact()
+        {
+            if (_input.interact)
+            {
+                Debug.Log("INTERACTING");
+            }
+        }
 
 		private void LateUpdate()
 		{
