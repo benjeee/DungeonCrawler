@@ -12,7 +12,7 @@ namespace StarterAssets
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
-        public bool interact;
+        public bool ability1;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -39,12 +39,13 @@ namespace StarterAssets
 
 		public void OnJump(InputValue value)
 		{
-			JumpInput(value.isPressed);
+            
+            JumpInput(value.isPressed);
 		}
 
-        public void OnInteract(InputValue value)
+        public void OnAbility1(InputValue value)
         {
-            InteractInput(value.isPressed);
+            Ability1Input(value.isPressed);
         }
 
 		public void OnSprint(InputValue value)
@@ -71,9 +72,10 @@ namespace StarterAssets
 			jump = newJumpState;
 		}
 
-        public void InteractInput(bool newInteractState)
+        public void Ability1Input(bool newAbility1State)
         {
-            interact = newInteractState;
+            Debug.Log("GOT INPUT: " + newAbility1State);
+            ability1 = newAbility1State;
         }
 
 		public void SprintInput(bool newSprintState)
