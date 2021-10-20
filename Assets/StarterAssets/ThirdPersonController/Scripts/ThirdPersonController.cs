@@ -98,6 +98,13 @@ namespace StarterAssets
         private bool inHookshot;
         private Vector3 hookshotTargetPos;
         [SerializeField] private float hookshotDetachDist;
+        [SerializeField] private float walljumpCooldown;
+        private float timeSinceWallJump;
+        private bool inWalljump;
+
+        private bool isJumpingOffWall;
+        private Vector3 wallJumpVelocity;
+        private float timeJumpingOffWall = 0.0f;
 
 
 		private const float _threshold = 0.01f;
@@ -121,23 +128,42 @@ namespace StarterAssets
 			_fallTimeoutDelta = FallTimeout;
 		}
 
-		private void Update()
-		{
-			_hasAnimator = TryGetComponent(out _animator);
-			
-            JumpAndGravity();
+        private void Update()
+        {
+            _hasAnimator = TryGetComponent(out _animator);
 
-			
-			GroundedCheck();
+
+            if (!isJumpingOffWall)
+            {
+                JumpAndGravity();
+            }
+
+            if (!inWalljump)
+            {
+                GroundedCheck();
+            }
+
+            if (isJumpingOffWall)
+            {
+                _controller.Move(wallJumpVelocity * Time.deltaTime);
+
+                timeJumpingOffWall += Time.deltaTime;
+                if (timeJumpingOffWall > 0.5f)
+                {
+                    wallJumpVelocity = wallJumpVelocity * 0.9f;
+                    if (Vector3.Magnitude(wallJumpVelocity) < 0.01f)
+                    {
+                        isJumpingOffWall = false;
+                    }
+                }
+            }
 
             Ability1();
 
-            if (!inHookshot)
+            if (!inHookshot && !inWalljump && !isJumpingOffWall)
             {
                 Move();
             }
-
-            
         }
 
         private void renderReticule(Vector3 pos, float radius)
@@ -339,7 +365,7 @@ namespace StarterAssets
 
 		private void JumpAndGravity()
 		{
-			if (Grounded || inHookshot)
+			if (Grounded || inHookshot || inWalljump)
 			{
 				// reset the fall timeout timer
 				_fallTimeoutDelta = FallTimeout;
@@ -363,7 +389,16 @@ namespace StarterAssets
 					// the square root of H * -2 * G = how much velocity needed to reach desired height
                     if (!inHookshot)
                     {
-                        _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                        if (!inWalljump)
+                        {
+                            _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                        }
+                        else
+                        {
+                            inWalljump = false;
+                            timeSinceWallJump = 0.0f;
+                            _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+                        }
                     }
 
 
@@ -406,7 +441,10 @@ namespace StarterAssets
 			// apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
 			if (_verticalVelocity < _terminalVelocity)
 			{
-				_verticalVelocity += Gravity * Time.deltaTime;
+                if (!inWalljump)
+                {
+                    _verticalVelocity += Gravity * Time.deltaTime;
+                }
 			}
 		}
 
@@ -428,5 +466,30 @@ namespace StarterAssets
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
-	}
+        void OnControllerColliderHit(ControllerColliderHit hit)
+        {
+            if (hit.gameObject.GetComponent<Walljumpable>())
+            {
+                if (!Grounded)
+                {
+
+                    Vector3 currVelocity = _controller.velocity;
+                    Debug.Log(Vector3.Dot(currVelocity, hit.normal));
+                    if (Vector3.Dot(Vector3.Normalize(currVelocity), hit.normal) < -0.2f)
+                    {
+                        isJumpingOffWall = true;
+                        timeJumpingOffWall = 0.0f;
+                        wallJumpVelocity = Vector3.Reflect(currVelocity, -hit.normal);
+                    }
+                }
+
+                if (!Grounded)
+                {
+                    //inWalljump = true;
+                }
+            }
+        }
+
+
+    }
 }
