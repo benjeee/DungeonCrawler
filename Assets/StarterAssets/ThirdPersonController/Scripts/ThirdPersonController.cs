@@ -59,6 +59,13 @@ namespace StarterAssets
 		[Tooltip("For locking the camera position on all axis")]
 		public bool LockCameraPosition = false;
 
+        [Header("OurStuff")]
+        [SerializeField] Transform cameraTransform;
+        [SerializeField] float hookshotRange;
+        [SerializeField] int playerType; //0 == hookshot, 1 = wall jump
+
+        private Transform _shape;
+
 		// cinemachine
 		private float _cinemachineTargetYaw;
 		private float _cinemachineTargetPitch;
@@ -85,7 +92,13 @@ namespace StarterAssets
 		private Animator _animator;
 		private CharacterController _controller;
 		private StarterAssetsInputs _input;
-		private GameObject _mainCamera;
+		[SerializeField] private GameObject _mainCamera;
+        [SerializeField] Material reticuleMaterial;
+        [SerializeField] float reticuleSize;
+        private bool inHookshot;
+        private Vector3 hookshotTargetPos;
+        [SerializeField] private float hookshotDetachDist;
+
 
 		private const float _threshold = 0.01f;
 
@@ -93,11 +106,6 @@ namespace StarterAssets
 
 		private void Awake()
 		{
-			// get a reference to our main camera
-			if (_mainCamera == null)
-			{
-				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-			}
 		}
 
 		private void Start()
@@ -117,18 +125,113 @@ namespace StarterAssets
 		{
 			_hasAnimator = TryGetComponent(out _animator);
 			
-			JumpAndGravity();
-			GroundedCheck();
-            Interact();
-			Move();
-		}
-
-        private void Interact()
-        {
-            if (_input.interact)
+            if (!inHookshot)
             {
-                Debug.Log("INTERACTING");
+                JumpAndGravity();
             }
+			
+			GroundedCheck();
+
+            Ability1();
+
+            if (!inHookshot)
+            {
+                Move();
+            }
+
+            
+        }
+
+        private void renderReticule(Vector3 pos, float radius)
+        {
+            if (!_shape)
+            { // if shape doesn't exist yet, create it
+                _shape = GameObject.CreatePrimitive(PrimitiveType.Sphere).transform;
+                Destroy(_shape.GetComponent<Collider>()); // no collider, please!
+                _shape.GetComponent<Renderer>().material = reticuleMaterial; // assign the selected material to it
+            }
+            Vector3 scale; // calculate desired scale
+            scale.x = radius; // width = capsule diameter
+            scale.y = radius; // capsule height
+            scale.z = radius; // volume length
+            _shape.localScale = scale; // set the rectangular volume size
+                                       // set volume position and rotation
+            _shape.position = pos;
+            _shape.GetComponent<Renderer>().enabled = true; // show it
+        }
+
+        private void doHookshot()
+        {
+            //check if we are close enough to target pos
+            float dist = Vector3.Distance(transform.position, hookshotTargetPos);
+            if (dist < hookshotDetachDist)
+            {
+                inHookshot = false;
+                return;
+            }
+
+            //update player velocity each frame while in hookshot
+            float scalar = 10.0f;
+
+            Vector3 currVelocity = _controller.velocity;
+            Vector3 targetVelocityNormal = Vector3.Normalize(hookshotTargetPos - transform.position);
+            Vector3 targetVelocity = targetVelocityNormal * scalar;
+
+            Vector3 newVelocity = currVelocity + ((targetVelocity - currVelocity) * 0.2f);
+            _controller.Move(newVelocity * Time.deltaTime);
+        }
+
+        private void Ability1()
+        {
+            Vector3 fwd = cameraTransform.TransformDirection(Vector3.forward);
+
+            bool hookshotPressed = false;
+            if (_input.ability1)
+            {
+                if (playerType == 0)
+                {
+                    
+                    hookshotPressed = true;
+                }
+            }
+
+            if (inHookshot)
+            {
+                if (hookshotPressed)
+                {
+                    inHookshot = false;
+                }
+                else
+                {
+                    doHookshot();
+                }
+            }
+            else
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(cameraTransform.position, fwd, out hit, hookshotRange))
+                {
+                    if (hit.collider.gameObject.GetComponent<HookshotTarget>())
+                    {
+                        renderReticule(hit.point, reticuleSize);
+                        if (hookshotPressed)
+                        {
+                            hookshotTargetPos = hit.point;
+                            inHookshot = true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (_shape)
+                    {
+                        Destroy(_shape.gameObject);
+                    }
+                }
+            }
+
+            _input.ability1 = false;
+
         }
 
 		private void LateUpdate()

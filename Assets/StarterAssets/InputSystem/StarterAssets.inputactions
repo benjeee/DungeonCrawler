@@ -38,12 +38,12 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Interact",
+                    "name": "Ability1",
                     "type": "Button",
                     "id": "960036ba-f179-4410-b5a8-94190f7453f3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "Press(behavior=2)"
+                    "interactions": "Press"
                 }
             ],
             "bindings": [
@@ -230,7 +230,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
-                    "action": "Interact",
+                    "action": "Ability1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -241,7 +241,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "Interact",
+                    "action": "Ability1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
