@@ -134,7 +134,9 @@ namespace StarterAssets
 
 		private void Start()
 		{
-			_audioSpot = GameObject.Find("audiospot");
+            Cursor.lockState = CursorLockMode.Locked;
+
+            _audioSpot = GameObject.Find("audiospot");
 			Debug.Log(_audioSpot);
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
@@ -276,9 +278,6 @@ namespace StarterAssets
             {		
                 if (playerType == 0)
                 {
-					_audioSpot.transform.position = transform.position;
-					AudioSource.PlayClipAtPoint(ShootHookClip, _audioSpot.transform.position);
-
                     hookshotPressed = true;
                 }
             }
@@ -326,6 +325,8 @@ namespace StarterAssets
 
             if (hookshotPressed && hasTarget)
             {
+                _audioSpot.transform.position = transform.position;
+                AudioSource.PlayClipAtPoint(ShootHookClip, _audioSpot.transform.position);
                 hookshotQueued = true;
                 hookshotHookPos = transform.position;
                 //inHookshot = true;
