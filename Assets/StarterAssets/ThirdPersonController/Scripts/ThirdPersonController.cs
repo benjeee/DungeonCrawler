@@ -234,7 +234,7 @@ namespace StarterAssets
                 }
 
                 //update player velocity each frame while in hookshot
-                float scalar = 10.0f;
+                float scalar = 20.0f;
 
                 Vector3 currVelocity = _controller.velocity;
                 Vector3 targetVelocityNormal = Vector3.Normalize(hookshotTargetPos - hookshotSourcePos.position);
