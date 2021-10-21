@@ -63,6 +63,9 @@ namespace StarterAssets
         [SerializeField] Transform cameraTransform;
         [SerializeField] float hookshotRange;
         [SerializeField] int playerType; //0 == hookshot, 1 = wall jump
+		[SerializeField] public AudioClip ShootHookClip;
+		[SerializeField] public AudioClip BounceClip;
+		[SerializeField] public AudioClip FootClip;
 
         private Transform _shape;
         private GameObject _hookshotLine;
@@ -114,11 +117,14 @@ namespace StarterAssets
         private float timeJumpingOffWall = 0.0f;
 
 		private float timeSinceDeath = 100.0f;
+		private float timeSinceFootClip = 0.0f;
 
 
 		private const float _threshold = 0.01f;
 
 		private bool _hasAnimator;
+
+		private GameObject _audioSpot;
 
 		private void Awake()
 		{
@@ -126,6 +132,8 @@ namespace StarterAssets
 
 		private void Start()
 		{
+			_audioSpot = GameObject.Find("audiospot");
+			Debug.Log(_audioSpot);
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
@@ -260,9 +268,12 @@ namespace StarterAssets
 
             bool hookshotPressed = false;
             if (_input.ability1)
-            {
+            {		
                 if (playerType == 0)
                 {
+					_audioSpot.transform.position = transform.position;
+					AudioSource.PlayClipAtPoint(ShootHookClip, _audioSpot.transform.position);
+
                     hookshotPressed = true;
                 }
             }
@@ -410,6 +421,14 @@ namespace StarterAssets
 				transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
 			}
 
+			timeSinceFootClip += Time.deltaTime;
+			if (Grounded && _speed > 1.0f && timeSinceFootClip > 0.35f) 
+			{
+				timeSinceFootClip = 0.0f;
+				_audioSpot.transform.position = transform.position;
+				AudioSource.PlayClipAtPoint(FootClip, _audioSpot.transform.position);
+			}
+
 
 			Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
@@ -533,11 +552,12 @@ namespace StarterAssets
             {
                 if (!Grounded)
                 {
-
                     Vector3 currVelocity = _controller.velocity;
-                    Debug.Log(Vector3.Dot(currVelocity, hit.normal));
                     if (Vector3.Dot(Vector3.Normalize(currVelocity), hit.normal) < -0.2f)
                     {
+						_audioSpot.transform.position = transform.position;
+						AudioSource.PlayClipAtPoint(BounceClip, _audioSpot.transform.position);
+
                         isJumpingOffWall = true;
                         timeJumpingOffWall = 0.0f;
                         wallJumpVelocity = Vector3.Reflect(currVelocity, -hit.normal);
