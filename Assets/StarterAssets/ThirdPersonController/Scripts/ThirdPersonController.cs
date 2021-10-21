@@ -176,8 +176,11 @@ namespace StarterAssets
                 }
             }
 
-            Ability1();
-
+            if (playerType == 0)
+            {
+                Ability1();
+            }
+ 
             if (!inHookshot && !inWalljump && !isJumpingOffWall && (timeSinceDeath > .5f))
             {
                 Move();
@@ -550,7 +553,7 @@ namespace StarterAssets
         {
             if (hit.gameObject.GetComponent<Walljumpable>())
             {
-                if (!Grounded)
+                if (!Grounded && playerType == 1)
                 {
                     Vector3 currVelocity = _controller.velocity;
                     if (Vector3.Dot(Vector3.Normalize(currVelocity), hit.normal) < -0.2f)
