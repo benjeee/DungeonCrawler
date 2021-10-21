@@ -212,7 +212,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8944336655422409497, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f6d148d888ffbf54b9afe9936dfaec1f, type: 3}
 --- !u!1 &4392957092026832746 stripped
 GameObject:
@@ -490,9 +491,17 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: FootClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0fbbda28858a9ef458ed424cf89a90c1, type: 3}
+    - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: MoveSpeed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: BounceClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2d3390c9435254846adfc19a0d505da9, type: 3}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: JumpHeight
       value: 1.4
@@ -513,6 +522,10 @@ PrefabInstance:
       propertyPath: reticuleSize
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: ShootHookClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 38f2e9c6ef377fc4bbe73d93594dbd54, type: 3}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: hookshotRange
       value: 35

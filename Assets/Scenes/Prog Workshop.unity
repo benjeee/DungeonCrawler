@@ -1962,18 +1962,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3870609983898491069, guid: 105207263d170ae41989bb8d7ce52298, type: 3}
-      propertyPath: FootClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 0fbbda28858a9ef458ed424cf89a90c1, type: 3}
-    - target: {fileID: 3870609983898491069, guid: 105207263d170ae41989bb8d7ce52298, type: 3}
-      propertyPath: BounceClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 2d3390c9435254846adfc19a0d505da9, type: 3}
-    - target: {fileID: 3870609983898491069, guid: 105207263d170ae41989bb8d7ce52298, type: 3}
-      propertyPath: ShootHookClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 38f2e9c6ef377fc4bbe73d93594dbd54, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 105207263d170ae41989bb8d7ce52298, type: 3}
 --- !u!1001 &1254149462189025603
@@ -2379,10 +2367,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4392957092026832751, guid: 778894e2e8d12094d9bd48ca1aab4f2a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.089139
-      objectReference: {fileID: 0}
     - target: {fileID: 4671994230854853794, guid: 778894e2e8d12094d9bd48ca1aab4f2a, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2431,24 +2415,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player1
       objectReference: {fileID: 0}
-    - target: {fileID: 6659458566203440192, guid: 778894e2e8d12094d9bd48ca1aab4f2a, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.089139
-      objectReference: {fileID: 0}
-    - target: {fileID: 9050637804298055267, guid: 778894e2e8d12094d9bd48ca1aab4f2a, type: 3}
-      propertyPath: FootClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 0fbbda28858a9ef458ed424cf89a90c1, type: 3}
-    - target: {fileID: 9050637804298055267, guid: 778894e2e8d12094d9bd48ca1aab4f2a, type: 3}
-      propertyPath: BounceClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 2d3390c9435254846adfc19a0d505da9, type: 3}
-    - target: {fileID: 9050637804298055267, guid: 778894e2e8d12094d9bd48ca1aab4f2a, type: 3}
-      propertyPath: ShootHookClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 38f2e9c6ef377fc4bbe73d93594dbd54, type: 3}
-    m_RemovedComponents:
-    - {fileID: 4392957092026832745, guid: 778894e2e8d12094d9bd48ca1aab4f2a, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 778894e2e8d12094d9bd48ca1aab4f2a, type: 3}
 --- !u!1001 &8345070700268369567
 PrefabInstance:
