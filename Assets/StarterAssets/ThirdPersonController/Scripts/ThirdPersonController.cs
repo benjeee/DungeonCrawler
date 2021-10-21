@@ -246,6 +246,11 @@ namespace StarterAssets
                 Vector3 newVelocity = currVelocity + ((targetVelocity - currVelocity) * 0.2f);
                 _controller.Move(newVelocity * Time.deltaTime);
             }
+
+            Vector3 targetDir = hookshotTargetPos - transform.position;
+            Vector3 rot = Vector3.RotateTowards(transform.forward, targetDir, 1.0f, 0.0f);
+            rot.y = 0.0f;
+            transform.rotation = Quaternion.LookRotation(rot);
             renderHookshotLine();
         }
 
