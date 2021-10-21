@@ -416,24 +416,6 @@ ReflectionProbe:
   m_UseOcclusionCulling: 1
   m_Importance: 1
   m_CustomBakedTexture: {fileID: 0}
---- !u!1 &725039809 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 725039809, guid: b1bda34611d0b544cb61d28bd6148087, type: 3}
-  m_PrefabInstance: {fileID: 3873911216774044324}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &725039810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 725039809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00872a2da9e25844b8c5b89d40c3e727, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  left: 1
 --- !u!1001 &746329221
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -503,24 +485,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0271df749728104eac22c3d897fd8ce, type: 3}
---- !u!1 &833377280 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 833377280, guid: b1bda34611d0b544cb61d28bd6148087, type: 3}
-  m_PrefabInstance: {fileID: 3873911216774044324}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &833377284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 833377280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00872a2da9e25844b8c5b89d40c3e727, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  left: 0
 --- !u!1 &874605735
 GameObject:
   m_ObjectHideFlags: 0
@@ -2210,14 +2174,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 725039809, guid: b1bda34611d0b544cb61d28bd6148087, type: 3}
-      propertyPath: m_Name
-      value: LeftReticule
-      objectReference: {fileID: 0}
-    - target: {fileID: 833377280, guid: b1bda34611d0b544cb61d28bd6148087, type: 3}
-      propertyPath: m_Name
-      value: RightReticule
-      objectReference: {fileID: 0}
     - target: {fileID: 3873911216842561450, guid: b1bda34611d0b544cb61d28bd6148087, type: 3}
       propertyPath: m_Pivot.x
       value: 0
