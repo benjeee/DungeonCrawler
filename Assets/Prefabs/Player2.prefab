@@ -519,6 +519,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8420485933475707859}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
+      propertyPath: hookshotSourcePos
+      value: 
+      objectReference: {fileID: 14825472}
+    - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: hookshotDetachDist
       value: 1
       objectReference: {fileID: 0}
