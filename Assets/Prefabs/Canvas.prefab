@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 725039810}
   - component: {fileID: 725039812}
   - component: {fileID: 725039811}
+  - component: {fileID: 4195853080709738651}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: LeftReticule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,6 +76,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4195853080709738651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725039809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00872a2da9e25844b8c5b89d40c3e727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left: 1
 --- !u!1 &833377280
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,8 +100,9 @@ GameObject:
   - component: {fileID: 833377281}
   - component: {fileID: 833377283}
   - component: {fileID: 833377282}
+  - component: {fileID: 833377284}
   m_Layer: 5
-  m_Name: Image
+  m_Name: RightReticule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,6 +165,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &833377284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 833377280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00872a2da9e25844b8c5b89d40c3e727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  left: 0
 --- !u!1 &3873911216842561453
 GameObject:
   m_ObjectHideFlags: 0
