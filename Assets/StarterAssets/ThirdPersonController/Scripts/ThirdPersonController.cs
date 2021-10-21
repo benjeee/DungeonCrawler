@@ -113,6 +113,8 @@ namespace StarterAssets
         private Vector3 wallJumpVelocity;
         private float timeJumpingOffWall = 0.0f;
 
+		private float timeSinceDeath = 100.0f;
+
 
 		private const float _threshold = 0.01f;
 
@@ -137,6 +139,7 @@ namespace StarterAssets
 
         private void Update()
         {
+			timeSinceDeath += Time.deltaTime;
             _hasAnimator = TryGetComponent(out _animator);
 
 
@@ -167,7 +170,7 @@ namespace StarterAssets
 
             Ability1();
 
-            if (!inHookshot && !inWalljump && !isJumpingOffWall)
+            if (!inHookshot && !inWalljump && !isJumpingOffWall && (timeSinceDeath > .5f))
             {
                 Move();
             }
@@ -543,6 +546,17 @@ namespace StarterAssets
             }
         }
 
-
+		void OnTriggerEnter(Collider collider)
+		{
+			KillVolume killVolume = collider.gameObject.GetComponent<KillVolume>();
+			if (killVolume)
+			{
+				timeSinceDeath = 0.0f;
+				_controller.enabled = false;
+				_controller.transform.position = killVolume.respawnPosition.position;
+				_controller.enabled = true;
+				_speed = 0.0f;
+			}
+		}
     }
 }
