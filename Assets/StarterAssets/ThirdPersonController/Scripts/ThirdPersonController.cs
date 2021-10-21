@@ -246,6 +246,7 @@ namespace StarterAssets
                 float dist = Vector3.Distance(hookshotSourcePos.position, hookshotTargetPos);
                 if (dist < hookshotDetachDist)
                 {
+                    _controller.Move(Vector3.zero);
                     Destroy(_hookshotLine.gameObject);
                     inHookshot = false;
                     return;
