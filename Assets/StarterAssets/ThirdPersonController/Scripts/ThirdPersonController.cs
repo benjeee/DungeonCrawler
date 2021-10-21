@@ -65,6 +65,7 @@ namespace StarterAssets
         [SerializeField] int playerType; //0 == hookshot, 1 = wall jump
 
         private Transform _shape;
+        private GameObject _hookshotLine;
 
 		// cinemachine
 		private float _cinemachineTargetYaw;
@@ -95,10 +96,16 @@ namespace StarterAssets
 		[SerializeField] private GameObject _mainCamera;
         [SerializeField] Material reticuleMaterial;
         [SerializeField] float reticuleSize;
+        [SerializeField] float hookshotMoveSpeed = 35.0f;
+        private Vector3 hookshotHookPos;
+        private bool hookshotQueued;
         private bool inHookshot;
+        private bool hasTarget;
+        private float targetDecayTime;
         private Vector3 hookshotTargetPos;
         [SerializeField] private float hookshotDetachDist;
         [SerializeField] private float walljumpCooldown;
+        [SerializeField] private Transform hookshotSourcePos;
         private float timeSinceWallJump;
         private bool inWalljump;
 
@@ -184,25 +191,59 @@ namespace StarterAssets
             _shape.GetComponent<Renderer>().enabled = true; // show it
         }
 
+        private void renderHookshotLine()
+        {
+            LineRenderer lRend = null;
+            if (!_hookshotLine)
+            {
+                _hookshotLine = new GameObject("hookshotline");
+                lRend = _hookshotLine.AddComponent<LineRenderer>();
+                lRend.material = reticuleMaterial;
+            }
+            if (!lRend)
+            {
+                lRend = _hookshotLine.GetComponent<LineRenderer>();
+            }
+            lRend.startWidth = 0.05f;
+            lRend.endWidth = 0.05f;
+            lRend.SetPosition(0, hookshotSourcePos.position);
+            lRend.SetPosition(1, hookshotHookPos);
+        }
+
         private void doHookshot()
         {
-            //check if we are close enough to target pos
-            float dist = Vector3.Distance(transform.position, hookshotTargetPos);
-            if (dist < hookshotDetachDist)
+            if (hookshotQueued)
             {
-                inHookshot = false;
-                return;
+                Vector3 targetVelocity = Vector3.Normalize(hookshotTargetPos - hookshotHookPos) * hookshotMoveSpeed;
+                hookshotHookPos = hookshotHookPos + targetVelocity * Time.deltaTime;
+                if (Vector3.Distance(hookshotHookPos, hookshotTargetPos) < 0.3)
+                {
+                    inHookshot = true;
+                    hookshotQueued = false;
+                }
             }
+            else if (inHookshot)
+            {
+                //check if we are close enough to target pos
+                float dist = Vector3.Distance(hookshotSourcePos.position, hookshotTargetPos);
+                if (dist < hookshotDetachDist)
+                {
+                    Destroy(_hookshotLine.gameObject);
+                    inHookshot = false;
+                    return;
+                }
 
-            //update player velocity each frame while in hookshot
-            float scalar = 10.0f;
+                //update player velocity each frame while in hookshot
+                float scalar = 10.0f;
 
-            Vector3 currVelocity = _controller.velocity;
-            Vector3 targetVelocityNormal = Vector3.Normalize(hookshotTargetPos - transform.position);
-            Vector3 targetVelocity = targetVelocityNormal * scalar;
+                Vector3 currVelocity = _controller.velocity;
+                Vector3 targetVelocityNormal = Vector3.Normalize(hookshotTargetPos - hookshotSourcePos.position);
+                Vector3 targetVelocity = targetVelocityNormal * scalar;
 
-            Vector3 newVelocity = currVelocity + ((targetVelocity - currVelocity) * 0.2f);
-            _controller.Move(newVelocity * Time.deltaTime);
+                Vector3 newVelocity = currVelocity + ((targetVelocity - currVelocity) * 0.2f);
+                _controller.Move(newVelocity * Time.deltaTime);
+            }
+            renderHookshotLine();
         }
 
         private void Ability1()
@@ -214,16 +255,18 @@ namespace StarterAssets
             {
                 if (playerType == 0)
                 {
-                    
                     hookshotPressed = true;
                 }
             }
 
-            if (inHookshot)
+            if (inHookshot || hookshotQueued)
             {
                 if (hookshotPressed)
                 {
+                    Destroy(_hookshotLine.gameObject);
+                    hookshotQueued = false;
                     inHookshot = false;
+                    hasTarget = false;
                 }
                 else
                 {
@@ -237,21 +280,31 @@ namespace StarterAssets
                 {
                     if (hit.collider.gameObject.GetComponent<HookshotTarget>())
                     {
+                        hasTarget = true;
+                        targetDecayTime = 0.5f;
+                        hookshotTargetPos = hit.point;
                         renderReticule(hit.point, reticuleSize);
-                        if (hookshotPressed)
-                        {
-                            hookshotTargetPos = hit.point;
-                            inHookshot = true;
-                        }
                     }
                 }
                 else
                 {
-                    if (_shape)
+                    targetDecayTime -= Time.deltaTime;
+                    if (targetDecayTime < 0.0f)
                     {
-                        Destroy(_shape.gameObject);
+                        if (_shape)
+                        {
+                            Destroy(_shape.gameObject);
+                        }
+                        hasTarget = false;
                     }
                 }
+            }
+
+            if (hookshotPressed && hasTarget)
+            {
+                hookshotQueued = true;
+                hookshotHookPos = transform.position;
+                //inHookshot = true;
             }
 
             _input.ability1 = false;
