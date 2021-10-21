@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -65,7 +67,7 @@ namespace StarterAssets
         [SerializeField] int playerType; //0 == hookshot, 1 = wall jump
 		[SerializeField] public AudioClip ShootHookClip;
 		[SerializeField] public AudioClip BounceClip;
-		[SerializeField] public AudioClip FootClip;
+		[SerializeField] public List<AudioClip> FootClip;
 
         private Transform _shape;
         private GameObject _hookshotLine;
@@ -429,7 +431,9 @@ namespace StarterAssets
 			{
 				timeSinceFootClip = 0.0f;
 				_audioSpot.transform.position = transform.position;
-				AudioSource.PlayClipAtPoint(FootClip, _audioSpot.transform.position);
+
+                int clipIndex = Random.Range(0, FootClip.Count);
+				AudioSource.PlayClipAtPoint(FootClip[clipIndex], _audioSpot.transform.position);
 			}
 
 
