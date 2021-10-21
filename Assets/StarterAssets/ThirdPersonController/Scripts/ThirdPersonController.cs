@@ -63,6 +63,8 @@ namespace StarterAssets
         [SerializeField] Transform cameraTransform;
         [SerializeField] float hookshotRange;
         [SerializeField] int playerType; //0 == hookshot, 1 = wall jump
+		[SerializeField] public AudioClip ShootHookClip;
+		[SerializeField] public AudioClip BounceClip;
 
         private Transform _shape;
         private GameObject _hookshotLine;
@@ -120,12 +122,16 @@ namespace StarterAssets
 
 		private bool _hasAnimator;
 
+		private GameObject _audioSpot;
+
 		private void Awake()
 		{
 		}
 
 		private void Start()
 		{
+			_audioSpot = GameObject.Find("audiospot");
+			Debug.Log(_audioSpot);
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
@@ -260,9 +266,12 @@ namespace StarterAssets
 
             bool hookshotPressed = false;
             if (_input.ability1)
-            {
+            {		
                 if (playerType == 0)
                 {
+					_audioSpot.transform.position = transform.position;
+					AudioSource.PlayClipAtPoint(ShootHookClip, _audioSpot.transform.position);
+
                     hookshotPressed = true;
                 }
             }
@@ -533,11 +542,13 @@ namespace StarterAssets
             {
                 if (!Grounded)
                 {
-
                     Vector3 currVelocity = _controller.velocity;
                     Debug.Log(Vector3.Dot(currVelocity, hit.normal));
                     if (Vector3.Dot(Vector3.Normalize(currVelocity), hit.normal) < -0.2f)
                     {
+						_audioSpot.transform.position = transform.position;
+						AudioSource.PlayClipAtPoint(BounceClip, _audioSpot.transform.position);
+
                         isJumpingOffWall = true;
                         timeJumpingOffWall = 0.0f;
                         wallJumpVelocity = Vector3.Reflect(currVelocity, -hit.normal);
