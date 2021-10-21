@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 #if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
 using UnityEngine.InputSystem;
+
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -63,6 +65,9 @@ namespace StarterAssets
         [SerializeField] Transform cameraTransform;
         [SerializeField] float hookshotRange;
         [SerializeField] int playerType; //0 == hookshot, 1 = wall jump
+		[SerializeField] public AudioClip ShootHookClip;
+		[SerializeField] public AudioClip BounceClip;
+		[SerializeField] public List<AudioClip> FootClip;
 
         private Transform _shape;
         private GameObject _hookshotLine;
@@ -98,9 +103,9 @@ namespace StarterAssets
         [SerializeField] float reticuleSize;
         [SerializeField] float hookshotMoveSpeed = 35.0f;
         private Vector3 hookshotHookPos;
-        private bool hookshotQueued;
-        private bool inHookshot;
-        private bool hasTarget;
+        public bool hookshotQueued;
+        public bool inHookshot;
+        public bool hasTarget;
         private float targetDecayTime;
         private Vector3 hookshotTargetPos;
         [SerializeField] private float hookshotDetachDist;
@@ -113,10 +118,15 @@ namespace StarterAssets
         private Vector3 wallJumpVelocity;
         private float timeJumpingOffWall = 0.0f;
 
+		private float timeSinceDeath = 100.0f;
+		private float timeSinceFootClip = 0.0f;
+
 
 		private const float _threshold = 0.01f;
 
 		private bool _hasAnimator;
+
+		private GameObject _audioSpot;
 
 		private void Awake()
 		{
@@ -124,6 +134,10 @@ namespace StarterAssets
 
 		private void Start()
 		{
+            Cursor.lockState = CursorLockMode.Locked;
+
+            _audioSpot = GameObject.Find("audiospot");
+			Debug.Log(_audioSpot);
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
 			_input = GetComponent<StarterAssetsInputs>();
@@ -137,6 +151,7 @@ namespace StarterAssets
 
         private void Update()
         {
+			timeSinceDeath += Time.deltaTime;
             _hasAnimator = TryGetComponent(out _animator);
 
 
@@ -165,9 +180,12 @@ namespace StarterAssets
                 }
             }
 
-            Ability1();
-
-            if (!inHookshot && !inWalljump && !isJumpingOffWall)
+            if (playerType == 0)
+            {
+                Ability1();
+            }
+ 
+            if (!inHookshot && !inWalljump && !isJumpingOffWall && (timeSinceDeath > .5f))
             {
                 Move();
             }
@@ -228,6 +246,7 @@ namespace StarterAssets
                 float dist = Vector3.Distance(hookshotSourcePos.position, hookshotTargetPos);
                 if (dist < hookshotDetachDist)
                 {
+                    _controller.Move(Vector3.zero);
                     Destroy(_hookshotLine.gameObject);
                     inHookshot = false;
                     return;
@@ -243,6 +262,11 @@ namespace StarterAssets
                 Vector3 newVelocity = currVelocity + ((targetVelocity - currVelocity) * 0.2f);
                 _controller.Move(newVelocity * Time.deltaTime);
             }
+
+            Vector3 targetDir = hookshotTargetPos - transform.position;
+            Vector3 rot = Vector3.RotateTowards(transform.forward, targetDir, 1.0f, 0.0f);
+            rot.y = 0.0f;
+            transform.rotation = Quaternion.LookRotation(rot);
             renderHookshotLine();
         }
 
@@ -252,7 +276,7 @@ namespace StarterAssets
 
             bool hookshotPressed = false;
             if (_input.ability1)
-            {
+            {		
                 if (playerType == 0)
                 {
                     hookshotPressed = true;
@@ -302,6 +326,8 @@ namespace StarterAssets
 
             if (hookshotPressed && hasTarget)
             {
+                _audioSpot.transform.position = transform.position;
+                AudioSource.PlayClipAtPoint(ShootHookClip, _audioSpot.transform.position);
                 hookshotQueued = true;
                 hookshotHookPos = transform.position;
                 //inHookshot = true;
@@ -400,6 +426,16 @@ namespace StarterAssets
 
 				// rotate to face input direction relative to camera position
 				transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+			}
+
+			timeSinceFootClip += Time.deltaTime;
+			if (Grounded && _speed > 1.0f && timeSinceFootClip > 0.35f) 
+			{
+				timeSinceFootClip = 0.0f;
+				_audioSpot.transform.position = transform.position;
+
+                int clipIndex = Random.Range(0, FootClip.Count);
+				AudioSource.PlayClipAtPoint(FootClip[clipIndex], _audioSpot.transform.position);
 			}
 
 
@@ -523,13 +559,14 @@ namespace StarterAssets
         {
             if (hit.gameObject.GetComponent<Walljumpable>())
             {
-                if (!Grounded)
+                if (!Grounded && playerType == 1)
                 {
-
                     Vector3 currVelocity = _controller.velocity;
-                    Debug.Log(Vector3.Dot(currVelocity, hit.normal));
                     if (Vector3.Dot(Vector3.Normalize(currVelocity), hit.normal) < -0.2f)
                     {
+						_audioSpot.transform.position = transform.position;
+						AudioSource.PlayClipAtPoint(BounceClip, _audioSpot.transform.position);
+
                         isJumpingOffWall = true;
                         timeJumpingOffWall = 0.0f;
                         wallJumpVelocity = Vector3.Reflect(currVelocity, -hit.normal);
@@ -543,6 +580,17 @@ namespace StarterAssets
             }
         }
 
-
+		void OnTriggerEnter(Collider collider)
+		{
+			KillVolume killVolume = collider.gameObject.GetComponent<KillVolume>();
+			if (killVolume)
+			{
+				timeSinceDeath = 0.0f;
+				_controller.enabled = false;
+				_controller.transform.position = killVolume.respawnPosition.position;
+				_controller.enabled = true;
+				_speed = 0.0f;
+			}
+		}
     }
 }
