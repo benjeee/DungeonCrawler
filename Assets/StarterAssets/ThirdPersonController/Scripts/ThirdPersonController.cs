@@ -103,9 +103,9 @@ namespace StarterAssets
         [SerializeField] float reticuleSize;
         [SerializeField] float hookshotMoveSpeed = 35.0f;
         private Vector3 hookshotHookPos;
-        private bool hookshotQueued;
-        private bool inHookshot;
-        private bool hasTarget;
+        public bool hookshotQueued;
+        public bool inHookshot;
+        public bool hasTarget;
         private float targetDecayTime;
         private Vector3 hookshotTargetPos;
         [SerializeField] private float hookshotDetachDist;
