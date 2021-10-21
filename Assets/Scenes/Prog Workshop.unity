@@ -1963,6 +1963,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3870609983898491069, guid: 105207263d170ae41989bb8d7ce52298, type: 3}
+      propertyPath: FootClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0fbbda28858a9ef458ed424cf89a90c1, type: 3}
+    - target: {fileID: 3870609983898491069, guid: 105207263d170ae41989bb8d7ce52298, type: 3}
       propertyPath: BounceClip
       value: 
       objectReference: {fileID: 8300000, guid: 2d3390c9435254846adfc19a0d505da9, type: 3}
@@ -2431,6 +2435,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 5.089139
       objectReference: {fileID: 0}
+    - target: {fileID: 9050637804298055267, guid: 778894e2e8d12094d9bd48ca1aab4f2a, type: 3}
+      propertyPath: FootClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0fbbda28858a9ef458ed424cf89a90c1, type: 3}
     - target: {fileID: 9050637804298055267, guid: 778894e2e8d12094d9bd48ca1aab4f2a, type: 3}
       propertyPath: BounceClip
       value: 
