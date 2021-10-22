@@ -222,8 +222,8 @@ namespace StarterAssets
             {
                 lRend = _hookshotLine.GetComponent<LineRenderer>();
             }
-            lRend.startWidth = 0.05f;
-            lRend.endWidth = 0.05f;
+            lRend.startWidth = 0.02f;
+            lRend.endWidth = 0.02f;
             lRend.SetPosition(0, hookshotSourcePos.position);
             lRend.SetPosition(1, hookshotHookPos);
         }
@@ -259,7 +259,7 @@ namespace StarterAssets
                 Vector3 targetVelocityNormal = Vector3.Normalize(hookshotTargetPos - hookshotSourcePos.position);
                 Vector3 targetVelocity = targetVelocityNormal * scalar;
 
-                Vector3 newVelocity = currVelocity + ((targetVelocity - currVelocity) * 0.2f);
+                Vector3 newVelocity = currVelocity + ((targetVelocity - currVelocity) * 3.0f * Time.deltaTime);
                 _controller.Move(newVelocity * Time.deltaTime);
             }
 
@@ -329,7 +329,7 @@ namespace StarterAssets
                 _audioSpot.transform.position = transform.position;
                 AudioSource.PlayClipAtPoint(ShootHookClip, _audioSpot.transform.position);
                 hookshotQueued = true;
-                hookshotHookPos = transform.position;
+                hookshotHookPos = hookshotSourcePos.position;
                 //inHookshot = true;
             }
 
