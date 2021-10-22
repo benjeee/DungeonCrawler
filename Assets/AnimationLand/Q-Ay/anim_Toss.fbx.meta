@@ -6,6 +6,9 @@ ModelImporter:
   - first:
       74: 6179628410238433668
     second: Toss
+  - first:
+      74: -8197325400439682201
+    second: ShortToss
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -39,6 +42,35 @@ ModelImporter:
       takeName: Toss
       internalID: 0
       firstFrame: 2
+      lastFrame: 16
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 2
+    - serializedVersion: 16
+      name: ShortToss
+      takeName: Toss
+      internalID: 0
+      firstFrame: 6.4
       lastFrame: 16
       wrapMode: 0
       orientationOffsetY: 0

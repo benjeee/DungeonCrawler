@@ -69,6 +69,9 @@ public class EyeController : MonoBehaviour
         }
         
         rend.material.mainTexture = faceAnims[currentAnim].texture;
+        rend.material.SetTexture ("_EmissionMap", faceAnims[currentAnim].texture);
         rend.material.SetTextureOffset("_MainTex", new Vector2(offset,0));
+        rend.material.SetTextureOffset("_MainTex", new Vector2(offset,0));
+        rend.material.SetTextureOffset("_EmissionMap", new Vector2(offset,0));
     }
 }
