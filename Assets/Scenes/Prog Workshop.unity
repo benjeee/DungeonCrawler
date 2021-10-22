@@ -2481,14 +2481,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1743378491292318276, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
-      propertyPath: UpAmbientClip
-      value: 
-      objectReference: {fileID: 8300000, guid: f9e02841856d63b4eb5d2791073aa49b, type: 3}
-    - target: {fileID: 1743378491292318276, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
-      propertyPath: DownAmbientClip
-      value: 
-      objectReference: {fileID: 8300000, guid: d669cbb91325cfd439bf5626249a8b72, type: 3}
     - target: {fileID: 2701503773891379772, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
       propertyPath: m_Name
       value: QA

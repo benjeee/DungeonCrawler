@@ -1660,7 +1660,7 @@ MonoBehaviour:
   hasTarget: 0
   hookshotDetachDist: 1
   walljumpCooldown: 0
-  hookshotSourcePos: {fileID: 3280470756079917817}
+  hookshotSourcePos: {fileID: 4009424433771858799}
 --- !u!114 &8417745405109014719
 MonoBehaviour:
   m_ObjectHideFlags: 0
