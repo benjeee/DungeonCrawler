@@ -94,6 +94,8 @@ namespace StarterAssets
 		private int _animIDJump;
 		private int _animIDFreeFall;
 		private int _animIDMotionSpeed;
+        private int _animIDHookThrown;
+        private int _animIDInHook;
 
 		private Animator _animator;
 		private CharacterController _controller;
@@ -237,6 +239,8 @@ namespace StarterAssets
                 if (Vector3.Distance(hookshotHookPos, hookshotTargetPos) < 0.3)
                 {
                     inHookshot = true;
+                    _animator.SetBool(_animIDInHook, inHookshot);
+                    _animator.SetBool(_animIDHookThrown, false);
                     hookshotQueued = false;
                 }
             }
@@ -248,6 +252,7 @@ namespace StarterAssets
                 {
                     _controller.Move(Vector3.zero);
                     Destroy(_hookshotLine.gameObject);
+                    _animator.SetBool(_animIDInHook, false);
                     inHookshot = false;
                     return;
                 }
@@ -288,6 +293,8 @@ namespace StarterAssets
                 if (hookshotPressed)
                 {
                     Destroy(_hookshotLine.gameObject);
+                    _animator.SetBool(_animIDInHook, false);
+                    _animator.SetBool(_animIDHookThrown, false);
                     hookshotQueued = false;
                     inHookshot = false;
                     hasTarget = false;
@@ -328,6 +335,7 @@ namespace StarterAssets
             {
                 _audioSpot.transform.position = transform.position;
                 AudioSource.PlayClipAtPoint(ShootHookClip, _audioSpot.transform.position);
+                _animator.SetBool(_animIDHookThrown, true);
                 hookshotQueued = true;
                 hookshotHookPos = hookshotSourcePos.position;
                 //inHookshot = true;
@@ -349,6 +357,8 @@ namespace StarterAssets
 			_animIDJump = Animator.StringToHash("Jump");
 			_animIDFreeFall = Animator.StringToHash("FreeFall");
 			_animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+            _animIDHookThrown = Animator.StringToHash("Thrown");
+            _animIDInHook = Animator.StringToHash("Hooked");
 		}
 
 		private void GroundedCheck()

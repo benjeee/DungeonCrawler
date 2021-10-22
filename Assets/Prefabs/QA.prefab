@@ -1652,7 +1652,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ee08ad350bde77a47ac73c9847346414, type: 3}
   - {fileID: 8300000, guid: 57f23c8981469d042948f43b9413ce0b, type: 3}
   _mainCamera: {fileID: 6439304770467354927}
-  reticuleMaterial: {fileID: 0}
+  reticuleMaterial: {fileID: 8659303113356582851, guid: 1c66b29b0a268b642ade314beaf71aa4, type: 3}
   reticuleSize: 0.3
   hookshotMoveSpeed: 35
   hookshotQueued: 0
