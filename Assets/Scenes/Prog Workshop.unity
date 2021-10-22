@@ -393,6 +393,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7b846d8f536f007498c941069487ce81, type: 3}
+--- !u!114 &507301569 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1207292361, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+  m_PrefabInstance: {fileID: 2763269719758549565}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870590957fb775e459a376a13d1a64af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &542508511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2481,6 +2492,46 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1207292361, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+      propertyPath: faceAnims.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207292361, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+      propertyPath: faceAnims.Array.data[1].texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 44b78283d8091874197a41e3cd43c13b, type: 3}
+    - target: {fileID: 1207292361, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+      propertyPath: faceAnims.Array.data[1].animName
+      value: Aim
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207292361, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+      propertyPath: faceAnims.Array.data[1].animOrder.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207292361, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+      propertyPath: faceAnims.Array.data[1].animOrder.Array.data[2]
+      value: 0.525
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207292361, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+      propertyPath: faceAnims.Array.data[1].animOrder.Array.data[3]
+      value: 0.265
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207292361, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+      propertyPath: faceAnims.Array.data[1].animOrder.Array.data[4]
+      value: 0.265
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207292361, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+      propertyPath: faceAnims.Array.data[1].animOrder.Array.data[5]
+      value: 0.265
+      objectReference: {fileID: 0}
+    - target: {fileID: 1207292361, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+      propertyPath: faceAnims.Array.data[1].animOrder.Array.data[6]
+      value: 0.525
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743378491292318276, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+      propertyPath: eyeController
+      value: 
+      objectReference: {fileID: 507301569}
     - target: {fileID: 2701503773891379772, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
       propertyPath: m_Name
       value: QA

@@ -113,6 +113,7 @@ namespace StarterAssets
         [SerializeField] private float hookshotDetachDist;
         [SerializeField] private float walljumpCooldown;
         [SerializeField] private Transform hookshotSourcePos;
+        [SerializeField] private EyeController eyeController;
         private float timeSinceWallJump;
         private bool inWalljump;
 
@@ -331,6 +332,7 @@ namespace StarterAssets
                     _animator.SetBool(_animIDHookThrown, false);
                     hookshotQueued = false;
                     inHookshot = false;
+                    eyeController.animToPlay = "Blink";
                     hasTarget = false;
                 }
                 else
@@ -345,6 +347,7 @@ namespace StarterAssets
                 {
                     if (hit.collider.gameObject.GetComponent<HookshotTarget>())
                     {
+                        eyeController.animToPlay = "Aim";
                         hasTarget = true;
                         targetDecayTime = 0.5f;
                         hookshotTargetPos = hit.point;
@@ -360,6 +363,7 @@ namespace StarterAssets
                         {
                             Destroy(_shape.gameObject);
                         }
+                        eyeController.animToPlay = "Blink";
                         hasTarget = false;
                     }
                 }

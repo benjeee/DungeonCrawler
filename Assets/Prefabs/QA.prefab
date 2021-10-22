@@ -1661,6 +1661,7 @@ MonoBehaviour:
   hookshotDetachDist: 1
   walljumpCooldown: 0
   hookshotSourcePos: {fileID: 4009424433771858799}
+  eyeController: {fileID: 1207292361}
 --- !u!114 &8417745405109014719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6862,6 +6863,21 @@ MonoBehaviour:
   rend: {fileID: 0}
   faceAnims:
   - animName: Blink
+    texture: {fileID: 2800000, guid: 44b78283d8091874197a41e3cd43c13b, type: 3}
+    animOrder:
+    - 0
+    - 0
+    - 0.525
+    - 0.265
+    - 0.265
+    - 0.265
+    - 0.525
+    - 0
+    - 0
+    - 0
+    - 0
+    - 0
+  - animName: Aim
     texture: {fileID: 2800000, guid: 44b78283d8091874197a41e3cd43c13b, type: 3}
     animOrder:
     - 0
