@@ -129,6 +129,10 @@ namespace StarterAssets
 		private bool _hasAnimator;
 
 		private GameObject _audioSpot;
+		private GameObject _audioPlane;
+		private GameObject _downSound;
+		private GameObject _upSound;
+		private int _soundPlaying = -1;
 
 		private void Awake()
 		{
@@ -139,6 +143,9 @@ namespace StarterAssets
             Cursor.lockState = CursorLockMode.Locked;
 
             _audioSpot = GameObject.Find("audiospot");
+			_audioPlane = GameObject.Find("AudioPlane");
+			_upSound = GameObject.Find("UpSound");
+			_downSound = GameObject.Find("DownSound");
 			Debug.Log(_audioSpot);
 			_hasAnimator = TryGetComponent(out _animator);
 			_controller = GetComponent<CharacterController>();
@@ -156,6 +163,33 @@ namespace StarterAssets
 			timeSinceDeath += Time.deltaTime;
             _hasAnimator = TryGetComponent(out _animator);
 
+			if (_audioPlane) 
+			{
+				Transform audioPlaneTransform = _audioPlane.GetComponent<Transform>();
+
+				if (transform.position.y < audioPlaneTransform.position.y)
+				{
+					if (_soundPlaying != 0) 
+					{
+						AudioSource upAudioSource = _upSound.GetComponent<AudioSource>();
+						AudioSource downAudioSource = _downSound.GetComponent<AudioSource>();
+						upAudioSource.Stop();
+						downAudioSource.Play();
+						_soundPlaying = 0;
+					}
+				}
+				else
+				{
+					if (_soundPlaying != 1)
+					{
+						AudioSource upAudioSource = _upSound.GetComponent<AudioSource>();
+						AudioSource downAudioSource = _downSound.GetComponent<AudioSource>();
+						downAudioSource.Stop();
+						upAudioSource.Play();
+						_soundPlaying = 1;
+					}
+				}
+			}
 
             if (!isJumpingOffWall)
             {
