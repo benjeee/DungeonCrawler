@@ -1,5 +1,66 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1768925258
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 109110826643739103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 870590957fb775e459a376a13d1a64af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rend: {fileID: 0}
+  faceAnims:
+  - animName: Blink
+    texture: {fileID: 2800000, guid: f83626d20f7a0ba4598487836d04a120, type: 3}
+    animOrder:
+    - 0.12
+    - 0.12
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.12
+    - 0.375
+    - 0.375
+    - 0.375
+    - 0.12
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+    - 0.875
+  scrollSpeed: 0.1
+  changeInterval: 0.25
+  animToPlay: 
+  currentAnim: 0
 --- !u!1 &713533183289170940
 GameObject:
   m_ObjectHideFlags: 0
@@ -129,7 +190,7 @@ MonoBehaviour:
   hookshotDetachDist: 1
   walljumpCooldown: 0
   hookshotSourcePos: {fileID: 8393770203078646891}
-  eyeController: {fileID: 0}
+  eyeController: {fileID: 1768925258}
 --- !u!114 &7279670769584206092
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -747,14 +808,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8314213299997039817, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb700e8df8548d14aae73dccf3972d69, type: 2}
+    - target: {fileID: -8109901166561796070, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b0ef9edaa8bf640479407df6a9d95e42, type: 2}
+    - target: {fileID: -4755131037610169641, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b0ef9edaa8bf640479407df6a9d95e42, type: 2}
+    - target: {fileID: -3899977604500151898, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 40f5751f75ef0c543abe4569754bc5a4, type: 2}
+    - target: {fileID: -1708086118541701311, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d848b44de7613143ba987784640ab73, type: 2}
+    - target: {fileID: -1149430439724031286, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb700e8df8548d14aae73dccf3972d69, type: 2}
     - target: {fileID: 919132149155446097, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
       propertyPath: m_Name
       value: character_QB
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c8f313737328f1c48a570da3c4664c57, type: 2}
+    - target: {fileID: 6532985822127820015, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
+      propertyPath: m_Name
+      value: ExpressionScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 8305446951805391600, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb700e8df8548d14aae73dccf3972d69, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
 --- !u!4 &6674555887754230491 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
+  m_PrefabInstance: {fileID: 6569186469832318256}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &109110826643739103 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6532985822127820015, guid: 49f3fd00e47f5764782aef383df8a71c, type: 3}
   m_PrefabInstance: {fileID: 6569186469832318256}
   m_PrefabAsset: {fileID: 0}
