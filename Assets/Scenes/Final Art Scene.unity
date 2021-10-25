@@ -64425,6 +64425,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 713533183289170928, guid: 8dab9ef7b311ffb47bd35fea6e65a94f, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: Gamepad
+      objectReference: {fileID: 0}
     - target: {fileID: 2888935807290395092, guid: 8dab9ef7b311ffb47bd35fea6e65a94f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.089138
@@ -64497,6 +64501,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -29.559998
       objectReference: {fileID: 0}
+    - target: {fileID: 6074519024197835580, guid: 8dab9ef7b311ffb47bd35fea6e65a94f, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: c8f313737328f1c48a570da3c4664c57, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8dab9ef7b311ffb47bd35fea6e65a94f, type: 3}
 --- !u!1001 &1405542115
@@ -92254,6 +92262,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1743378491292318275, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
+      propertyPath: m_DefaultControlScheme
+      value: KeyboardMouse
+      objectReference: {fileID: 0}
     - target: {fileID: 1743378491292318276, guid: 133de30760ec026479cc9277d44e26f8, type: 3}
       propertyPath: hookshotRange
       value: 20
